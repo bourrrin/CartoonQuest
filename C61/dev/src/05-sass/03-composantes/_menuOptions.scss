@@ -1,0 +1,19 @@
+.menu {
+  width: 20%;
+  height: 50rem;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 20%;
+  top: 50%;
+  transform: translate(-50%, 10%);
+  align-items: flex-start;
+
+  &__quit {
+    background-color: rgba(white, 0.5);
+    width: 30%;
+    z-index: 100;
+    border-radius: 0.3rem;
+  }
+}

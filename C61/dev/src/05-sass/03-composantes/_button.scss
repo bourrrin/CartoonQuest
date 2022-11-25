@@ -1,0 +1,49 @@
+.btn-text {
+	background-color: transparent;
+	border: none;
+	width: 25rem;
+	text-align: left;
+	text-shadow: 2px 2px black;
+
+	&:link,
+	&:visited{
+		//color: white;
+		display: inline-block;
+		text-decoration: none;
+		padding: .3rem;
+		transition: all 200ms;
+	}
+
+	&:hover {
+		//background-color: white;
+		color: black;
+		box-shadow: 0 1rem 2rem rgba(black, .15);
+		transform: translateY(-.3rem);
+
+	}
+
+	&:active {
+		box-shadow: 0 .5rem 1rem rgba(black, .15);
+		transform: translateY(-.1rem);
+	}
+}
+
+.buttonMusic{
+	background-color: transparent;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	overflow: hidden;
+	width: 100%;
+}
+
+.helpButton{
+	outline: none;
+	text-transform: uppercase;
+	border: none;
+	font-family: Friz;
+	font-size: 1.6rem;
+	color:#fcb924;
+	background-color:transparent;
+}

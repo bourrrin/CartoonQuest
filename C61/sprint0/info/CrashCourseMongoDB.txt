@@ -1,0 +1,222 @@
+/** 
+	Etape a suivre pour l'installation de mongoDB	
+	1. Telecharger la derniere version de mongoDB https://www.mongodb.com/try/download/community
+	2. Suivre la fenetre d'intallation et choisir l'option install as a service
+	3. Acceder a l'invite de commande mongo.exe qui se trouve a l'emplacement C:\Program Files\MongoDB\Server\5.0\bin
+	4. Il existe egalement un GUI pour voir la base de donnee. Le nom de l'application est compass
+	
+	Terme a connaitre francais <anglais>:
+	Collection <collection>: Correspond a une table ou un regroupement de plusieurs element. Par exemple la collection joueurs contiendra plusieurs element joueur.
+	Element <element>: Une entite qui est composé de plusieurs caractérisque de plusieurs types. Par exemple un joueur aura:
+		nom (string)
+		age (int)
+		nomUsager (string)
+		estActif (boolean)
+		email (string)
+		personnage{ nom, attkSpecial, pointDeVie, Mana} (Objet)
+		item [] (liste)
+		membreDepuis (Date())
+	Champs <field>: 
+	Valeur <value>:
+**/
+
+/** Afficher les base de donnees existante **/
+show dbs
+
+/** Permet de creer ou d'acceder a la BD portant le nom mentionné, dans ce cas-ci 'player' **/
+use player
+
+/** Detruit la base de donnee dans laquelle on se trouve **/
+db.dropDatabase()
+
+/** Creer une nouvelle collection (table) dans la base de donnee **/
+db.createCollection('player')
+
+/** Inserer un element dans une collection qui a ete creer precedemment. Il y possible d'inséré différent type
+de donnee. String, int, date, boolean, array[], object{} **/
+db.player.insert({
+	user_name: 'Bob223',
+	password: 'AAAaaa111',
+	nickname: 'bobby',
+	email: 'bob.sylveston1@gmail.com',
+	register_date: Date(),
+	account_active: true
+})
+
+/** Permet d'inserer plusieurs elements en meme temps **/
+db.player.insertMany([
+	{
+		user_name: 'amelia1234',
+		password: 'AAAaaa111',
+		nickname: 'Ame',
+		email: 'amelia.desgagne1@gmail.com',
+		register_date: Date(),
+		account_active: true
+	},
+	{
+		user_name: 'chloe1234',
+		password: 'AAAaaa111',
+		nickname: 'Bulle',
+		email: 'chloe.minecraft@gmail.com',
+		register_date: Date(),
+		account_active: true
+	},
+	{
+		user_name: 'luca1234',
+		password: 'AAAaaa111',
+		nickname: 'Rick',
+		email: 'luca.thebeast@gmail.com',
+		register_date: Date(),
+		account_active: true
+	}
+])
+
+/** Cette commande permet de trouver/d'acceder a de l'information dans la BD. Il est possible de preciser la recherche en ajoutant des parametres 
+	dans la fonction(). Par exemple: .find({user_name: 'bob1234'}) va afficher les informations sur le joueur ayant le user_name bob1234 **/
+.find()
+
+/** Affiche l'information trouvee de facon plus visible dans l'invite de commande **/
+.pretty()
+
+/** Permet de classer l'information a afficher dans un ordre croissant ou decroissant en fonction d'une valeur precise. Par exemple: 
+	.sort({nickname: 1}) cette fonction va afficher les joueurs en ordre croissant en fonction de leur nickname (1 = croissant. -1 = decroissant) **/
+.sort()
+
+/** Permet compter le nombre d'element. Peut etre combiner avec les autres fonctions **/
+.count()
+
+/** Effectuer une action pour chaque element trouvé **/
+.forEach()
+db.player.find().forEach(function(doc) { print('user_name: ' + doc.user_name)})
+
+/** Mettre a jour un element d'une collection en remplacant tout les elements present par la nouvelle information. Si on oublie un element. 
+	Par exemple on ne met pas account_active et register_date, ces elements vont être effacé. **/
+db.player.update({ user_name: 'Bob223'},
+	{
+		user_name: 'sideshowbob',
+		nickname: 'redhairmaniac',
+		account_active: true
+	},
+	{
+		upsert: true
+	}
+)
+
+/** Mettre a jout seulement certain element d'une collection sans supprimé tout les informations qui ne sont pas entrées. Il faudra ajouter l'operateur $set: 
+	Cette fonction pertmet aussi des lignes a notre collection. Par exemple on peut ajouter un element numberOfLogin**/
+$set:
+
+db.player.update({ user_name: 'Bob223'},
+	{
+		$set: {
+			user_name: 'sideshowbob',
+			nickname: 'redhairmaniac',
+			email: 'sideshowbob.themaniac@gmail.com' 
+		}
+	}
+)
+
+db.player.update({ user_name: 'sideshowbob'},
+	{
+		$set: {
+			numberOfLogin: 1
+		}
+	}
+)
+
+/** Operateur pour incrementer un element **/
+$inc:
+
+db.player.update({ user_name: 'sideshowbob'},
+	{
+		$inc: {
+			numberOfLogin: 2
+		}
+	}
+)
+
+/** Permet de renommer un champs de notre collection **/
+$rename:
+
+db.player.update({ user_name: 'sideshowbob'},
+	{
+		$rename: {
+			numberOfLogin: 'loginCount'
+		}
+	}
+)
+
+/** RECAP: Si je souhaite modifier le nom des champs pour qu'ils utilisent la nomenclature camelCase au lieu de snake_case **/
+db.player.find().forEach(function(doc) {
+	db.player.update({_id:doc._id},
+	{
+		$rename: {
+			user_name: 'userName',
+			register_date: 'registerDate',
+			account_active: 'accountActive'
+		}
+	}
+)
+})
+
+/** Supprimer un element d'une collection **/
+db.player.remove({userName: 'sideshowbob'})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

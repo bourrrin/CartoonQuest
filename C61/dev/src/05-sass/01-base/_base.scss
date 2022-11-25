@@ -1,0 +1,23 @@
+/* Raccourcie clavier intéressant:
+	- (Ctrl + d) Permet de selectionner tout les éléments ayant le même nom 1 à 1
+	- (Alt + left clic) Permet de placer le curseur à plusieurs endroit en même temps
+	- */
+
+/* Permet de reset tout les éléments incluant les ::before et ::after */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  /* Permet de définir la valeur de 1 rem */
+  font-size: 62.5%; // 1 rem = 10px;
+}
+
+body {
+  box-sizing: border-box; /* La marge et le padding ne seront plus ajouter à la hauteur ou largeur de l'élément */
+  //padding: 3rem;
+}

@@ -1,0 +1,617 @@
+.pagewrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  /* background-color: purple; */
+  overflow: hidden;
+}
+
+.container {
+  &__game {
+    /* background-color: #a8d59e; */
+    background-color: rgb(21, 42, 46);
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4.5fr 1fr;
+    grid-template-rows: 1fr 8fr 0.4fr;
+    gap: 0px 0px;
+    grid-template-areas:
+      "heart . key"
+      "items room stats"
+      ". . .";
+  }
+  &__map {
+    text-align: center;
+    canvas {
+      border-radius: 30px;
+      background-color: rgb(16, 15, 17);
+      border: 1px solid rgb(75, 75, 75);
+    }
+  }
+
+  &__items {
+    grid-area: items;
+  }
+
+  &__keys {
+    grid-area: key;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 20%;
+  }
+
+  &__room {
+    position: relative;
+    grid-area: room;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 10px 10px 10px black;
+  }
+
+  &__stats {
+    grid-area: stats;
+  }
+
+  &__heart {
+    grid-area: heart;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.ui {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.item {
+  transition: all 0.5s;
+  &__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    gap: 8% 8%;
+    grid-template-areas:
+      ". . "
+      ". . "
+      ". . "
+      ". . ";
+  }
+
+  &__price {
+    font-size: 1.5rem !important;
+  }
+
+  &_canvas {
+    width: 100%;
+    height: 100%;
+    // background-color: white;
+  }
+
+  &_slot,
+  &_canvas {
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 15px;
+  }
+
+  &_info_panel {
+    position: absolute;
+    top: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100000;
+
+    $btn_size: 40%;
+    width: $btn_size;
+    min-height: calc($btn_size/2);
+
+    background-color: rgba(0, 0, 0, 0.7);
+    border: white solid 2px;
+    border-radius: 40px;
+
+    padding: 0% 1%;
+
+    h3 {
+      text-align: center;
+    }
+
+    p {
+      margin-top: 2%;
+      color: rgb(201, 201, 201);
+      font-weight: bold;
+      font-size: 2rem;
+    }
+  }
+
+  &_used {
+    // background-image: url(../assets/items/bomb_items.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+  }
+}
+
+.stat {
+  display: flex;
+  font-size: 2em;
+  color: white;
+
+  &__name {
+    margin-right: 5%;
+    text-transform: capitalize;
+  }
+}
+
+.item__list,
+.stat__list {
+  width: 70%;
+  height: 70%;
+  padding: 10% 0px;
+}
+
+// .ui > h1:first-child {
+//     border-bottom: 1px solid #fcb924;
+//     box-shadow: 0px 2px #891f05;
+// }
+
+.text__highlignted--title {
+  font-size: 3em;
+  letter-spacing: 0.3em;
+  --text: #fcb924;
+  --shadow: #891f05;
+  color: var(--text);
+  text-shadow: 6px 6px var(--shadow), 5.75px 5.75px var(--shadow),
+    5.5px 5.5px var(--shadow), 5.25px 5.25px var(--shadow),
+    5px 5px var(--shadow), 4.75px 4.75px var(--shadow),
+    4.5px 4.5px var(--shadow), 4.25px 4.25px var(--shadow),
+    4px 4px var(--shadow), 3.75px 3.75px var(--shadow),
+    3.5px 3.5px var(--shadow), 3.25px 3.25px var(--shadow),
+    3px 3px var(--shadow), 2.75px 2.75px var(--shadow),
+    2.5px 2.5px var(--shadow), 2.25px 2.25px var(--shadow),
+    2px 2px var(--shadow), 1.75px 1.75px var(--shadow),
+    1.5px 1.5px var(--shadow), 1.25px 1.25px var(--shadow),
+    1px 1px var(--shadow), 0.75px 0.75px var(--shadow),
+    0.5px 0.5px var(--shadow), 0.25px 0.25px var(--shadow);
+}
+
+/* Hex Codes: #009fdd, #0f6bb3, #fcb924, #6eb440, #a8d59e, #891f05 */
+
+.key {
+  height: 55%;
+  width: 20%;
+  /* aspect-ratio: 1/1; */
+  /* background-color: red; */
+  background-image: url(../04-assets/game/general/key.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &--value {
+    color: white;
+  }
+}
+
+.heart {
+  width: 8%;
+  height: 24%;
+  margin: 2%;
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  &__list {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-flow: row wrap;
+    width: 80%;
+    height: 80%;
+  }
+
+  &--full {
+    background-image: url(../04-assets/game/general/full_heart.png);
+    transform: scale(1.2);
+  }
+
+  &--half {
+    background-image: url(../04-assets/game/general/half_heart.png);
+  }
+
+  &--empty {
+    background-image: url(../04-assets/game/general/empty_heart.png);
+  }
+}
+
+.scene {
+  background-color: white;
+  background-image: url("../04-assets/game/general/loading.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  border: black 1px solid;
+}
+
+.room {
+  &_name {
+    // position: absolute;
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    top: 1%;
+    margin: 0px auto;
+  }
+
+  &_cover {
+    background-color: black;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+  }
+}
+
+.fade {
+  animation: fade-out 250ms both;
+}
+
+.fade-in {
+  animation: fade-in 250ms both;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.gameOver {
+  background-image: url(../04-assets/game/backgrounds/gameOver.png);
+  background-size: contain;
+  background-position: center center;
+  animation: fade-in 10s both;
+}
+
+#gameOver_button {
+  opacity: 0;
+  position: absolute;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background-color: transparent;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  transition: all 0.4s;
+  padding: 1%;
+  &:hover {
+    // background-color: rgba(0, 0, 0, 0.6);
+    border: 1px white solid;
+  }
+}
+
+.max_key::after {
+  animation: showMaxKey 500ms 2s both ease;
+  width: 11.2vw;
+  text-align: center;
+  background-color: rgba(255, 187, 0, 0.658);
+  border-radius: 50px;
+  border: 1px solid rgb(10, 10, 10);
+
+  color: white;
+  content: "MAX";
+  font-size: 2.5em;
+  position: absolute;
+  box-shadow: white 0px 0px 1px;
+
+  --text: rgb(255, 255, 255);
+  --shadow: #000000;
+  color: var(--text);
+  text-shadow: 6px 6px var(--shadow), 5.75px 5.75px var(--shadow),
+    5.5px 5.5px var(--shadow), 5.25px 5.25px var(--shadow),
+    5px 5px var(--shadow), 4.75px 4.75px var(--shadow),
+    4.5px 4.5px var(--shadow), 4.25px 4.25px var(--shadow),
+    4px 4px var(--shadow), 3.75px 3.75px var(--shadow),
+    3.5px 3.5px var(--shadow), 3.25px 3.25px var(--shadow),
+    3px 3px var(--shadow), 2.75px 2.75px var(--shadow),
+    2.5px 2.5px var(--shadow), 2.25px 2.25px var(--shadow),
+    2px 2px var(--shadow), 1.75px 1.75px var(--shadow),
+    1.5px 1.5px var(--shadow), 1.25px 1.25px var(--shadow),
+    1px 1px var(--shadow), 0.75px 0.75px var(--shadow),
+    0.5px 0.5px var(--shadow), 0.25px 0.25px var(--shadow);
+}
+
+@keyframes showMaxKey {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(2);
+    box-shadow: white 0px 0px 100px;
+  }
+}
+
+.max_hp::after {
+  animation: showMaxheart 500ms both ease;
+  width: 11.2vw;
+  text-align: center;
+  background-color: rgba(165, 6, 46, 0.521);
+  border-radius: 50px;
+  border: 1px solid rgb(10, 10, 10);
+
+  color: white;
+  content: "MAX";
+  font-size: 2.5em;
+  position: absolute;
+  box-shadow: white 0px 0px 1px;
+
+  --text: rgb(255, 255, 255);
+  --shadow: #000000;
+  color: var(--text);
+  text-shadow: 6px 6px var(--shadow), 5.75px 5.75px var(--shadow),
+    5.5px 5.5px var(--shadow), 5.25px 5.25px var(--shadow),
+    5px 5px var(--shadow), 4.75px 4.75px var(--shadow),
+    4.5px 4.5px var(--shadow), 4.25px 4.25px var(--shadow),
+    4px 4px var(--shadow), 3.75px 3.75px var(--shadow),
+    3.5px 3.5px var(--shadow), 3.25px 3.25px var(--shadow),
+    3px 3px var(--shadow), 2.75px 2.75px var(--shadow),
+    2.5px 2.5px var(--shadow), 2.25px 2.25px var(--shadow),
+    2px 2px var(--shadow), 1.75px 1.75px var(--shadow),
+    1.5px 1.5px var(--shadow), 1.25px 1.25px var(--shadow),
+    1px 1px var(--shadow), 0.75px 0.75px var(--shadow),
+    0.5px 0.5px var(--shadow), 0.25px 0.25px var(--shadow);
+}
+
+@keyframes showMaxheart {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(2);
+    box-shadow: white 0px 0px 100px;
+  }
+}
+
+.animate_loot_key::after {
+  content: "";
+  position: absolute;
+  left: 45%;
+  top: 45%;
+  z-index: 10000;
+  width: 10%;
+  height: 10%;
+  background-image: url(../04-assets/game/general/key.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  animation: loot_key 1s both ease-in-out;
+}
+
+@keyframes loot_key {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(2);
+  }
+  60% {
+    transform: scale(1);
+    left: 45%;
+    top: 45%;
+    opacity: 1;
+  }
+  100% {
+    left: 90%;
+    top: 0%;
+    opacity: 0;
+  }
+}
+
+.animate_loot_key_container {
+  animation: showLootKey 1.5s both ease;
+}
+
+@keyframes showLootKey {
+  50% {
+    transform: scale(1.8);
+  }
+}
+
+.gain_hp {
+  animation: showNewHeart 0.5s both ease;
+}
+
+@keyframes showNewHeart {
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+.gain_gold {
+  animation: showNewGold 0.5s both ease;
+}
+
+@keyframes showNewGold {
+  50% {
+    transform: scale(1.5);
+  }
+}
+
+.stat_changed {
+  animation: showNewStats 1s both ease;
+}
+
+@keyframes showNewStats {
+  50% {
+    color: rgb(31, 139, 55);
+  }
+}
+
+.stat_decreased {
+  animation: showNewStatsD 1s both ease;
+}
+
+@keyframes showNewStatsD {
+  50% {
+    color: rgb(139, 31, 31);
+  }
+}
+
+.inventory--full {
+  animation: inventoryFull 0.5s both ease;
+  &::after {
+    content: "INVENTORY FULL";
+    font-size: 2rem;
+    z-index: 10000;
+    color: white;
+    background-color: rgba(131, 0, 0, 0.6);
+    border-radius: 5px;
+    top: -8%;
+    left: 2%;
+    position: absolute;
+    padding: 2% 3%;
+
+    text-align: center;
+    font-weight: bold;
+    border: 1px white solid;
+
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+      1px 1px 0 #000;
+  }
+}
+
+@keyframes inventoryFull {
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.not_enought_gold {
+  animation: not_enought_gold 0.5s both ease;
+}
+
+@keyframes not_enought_gold {
+  50% {
+    transform: scale(1.2);
+    color: red;
+  }
+}
+
+.newLevel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1000;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  &--show {
+    animation: newLevel--show 5s both ease;
+  }
+}
+
+@keyframes newLevel--show {
+  20% {
+    opacity: 1;
+  }
+  50% {
+    font-size: 10rem;
+    opacity: 1;
+  }
+  100% {
+    font-size: 10rem;
+  }
+}
+
+.menu__pause {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20vw;
+  height: 50vh;
+  transform: translate(-50%, -50%);
+  z-index: 100000;
+  opacity: 0;
+
+  border-radius: 20px;
+  padding: 3% 0px;
+
+  color: white;
+  background-color: rgb(0, 0, 0, 0.9);
+  border: 1px solid white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+}
+
+.menu__btn {
+  width: 100%;
+  font-size: 2rem;
+  text-align: center;
+  transition: all 0.5s;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+  &:first-child {
+    font-size: 2.5rem;
+    margin-bottom: 5%;
+    text-decoration: underline;
+  }
+}
+
+@keyframes menu__pause--show {
+  100% {
+    opacity: 1;
+  }
+}
+
+a {
+  text-decoration: none;
+}
+
+.timer {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translate(-50%, -50%);
+
+  & > * {
+    font-size: 2.5em;
+    letter-spacing: 0.1em;
+    --text: #fcb924;
+    --shadow: #891f05;
+    color: var(--text);
+    text-shadow: 6px 6px var(--shadow), 5.75px 5.75px var(--shadow),
+      5.5px 5.5px var(--shadow), 5.25px 5.25px var(--shadow),
+      5px 5px var(--shadow), 4.75px 4.75px var(--shadow),
+      4.5px 4.5px var(--shadow), 4.25px 4.25px var(--shadow),
+      4px 4px var(--shadow), 3.75px 3.75px var(--shadow),
+      3.5px 3.5px var(--shadow), 3.25px 3.25px var(--shadow),
+      3px 3px var(--shadow), 2.75px 2.75px var(--shadow),
+      2.5px 2.5px var(--shadow), 2.25px 2.25px var(--shadow),
+      2px 2px var(--shadow), 1.75px 1.75px var(--shadow),
+      1.5px 1.5px var(--shadow), 1.25px 1.25px var(--shadow),
+      1px 1px var(--shadow), 0.75px 0.75px var(--shadow),
+      0.5px 0.5px var(--shadow), 0.25px 0.25px var(--shadow);
+  }
+}

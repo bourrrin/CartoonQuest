@@ -1,0 +1,12 @@
+@import "01-base/_base.scss";
+@import "01-base/_typography.scss";
+
+@import "03-composantes/_button.scss";
+@import "03-composantes/_canvas.scss";
+@import "03-composantes/_image.scss";
+@import "03-composantes/_menuOptions.scss";
+@import "03-composantes/_settings.scss";
+
+@import "05-pages/_lobby.scss";
+@import "05-pages/_login.scss";
+@import "05-pages/_game.scss";

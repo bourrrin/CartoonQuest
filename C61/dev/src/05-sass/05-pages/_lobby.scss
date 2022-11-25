@@ -1,0 +1,187 @@
+.lobby {
+  &__container {
+    height: 100vh;
+    background-image: url("../04-assets/lobby/lobby-background.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 100vw;
+    background-color: rgb(21, 42, 46);
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1.5fr;
+    grid-template-rows: 1.2fr 1fr 1.5fr;
+    grid-template-areas:
+      "animation animation animation"
+      ". menus ."
+      ". . .";
+  }
+
+  &__menu {
+    text-align: center;
+    grid-area: menus;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(21, 42, 46, 0.95);
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px black;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  &__button {
+    margin: 2% 0px;
+    width: 100%;
+    text-decoration: none;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  &__panel__section {
+    grid-area: panel;
+    color: white;
+    font-size: 2em;
+    letter-spacing: 0.3em;
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 10px 10px 10px black;
+    transition: 0.5s;
+  }
+
+  &__continue__game__section {
+    padding: 0.8em;
+  }
+
+  &__about__section {
+    padding: 0.8em;
+  }
+
+  &__item__list {
+    height: 3em;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    gap: 8% 8%;
+    grid-template-areas: ". . . . . . . . . . .";
+  }
+
+  &__animation {
+    grid-area: animation;
+    width: 100vw;
+    height: 300px;
+    z-index: 0;
+    display: flex;
+    justify-content: center;
+
+    &__section {
+      position: relative;
+      flex: 1;
+      height: 100%;
+    }
+
+    &__ad__back__letters {
+      position: absolute;
+      top: 60px;
+      left: 120px;
+      z-index: 0;
+    }
+
+    &__ad__front__letters {
+      position: absolute;
+      top: 155px;
+      left: 203px;
+      z-index: 2;
+    }
+
+    &__ad__sword {
+      position: absolute;
+      top: 145px;
+      left: -2500px;
+      z-index: 1;
+    }
+
+    &__ad__light {
+      position: absolute;
+      top: 36px;
+      left: 30px;
+      z-index: 4;
+      opacity: 0;
+    }
+
+    &__ad__lighted {
+      position: absolute;
+      top: 10px;
+      left: -15px;
+      z-index: -1;
+      opacity: 0;
+    }
+
+    &__sb__logo {
+      position: absolute;
+      top: 30px;
+      left: 80px;
+      z-index: -2;
+    }
+
+    &__canvas {
+      position: absolute;
+      z-index: -10;
+    }
+
+    &__ppg__logo {
+      position: absolute;
+      top: 70px;
+      left: 50px;
+      z-index: 1;
+    }
+  }
+}
+
+.container {
+  &__itemShow {
+    background-color: rgb(21, 42, 46);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__itemsShow {
+    height: 80%;
+    width: 95%;
+    margin-top: 2%;
+  }
+}
+
+.itemShow__return {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(0.5);
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 1% 2%;
+  border-radius: 20px;
+  border: solid 2px rgb(0, 0, 0);
+  transition: all 500ms;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+.itemShow__list {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: row wrap;
+  margin: 2%;
+}
+.itemShow__list > div {
+  margin: 1% 2%;
+  --taille: 10.5vh;
+  width: var(--taille);
+  height: var(--taille);
+  aspect-ratio: 1/1;
+}
